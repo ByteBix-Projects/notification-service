@@ -1,11 +1,24 @@
 # Notification Service
 
-The Notification Service is a microservice in the ride-booking system that manages real-time communication with users and drivers, sending push notifications for updates and alerts.
+The Notification Service manages real-time communication, sending push notifications for updates and alerts in the ride-booking system.
 
 ## Key Features
-- **Push Notifications**: Sends instant updates via Firebase Cloud Messaging or similar tools.
-- **Ride Status Alerts**: Notifies about ride acceptance, arrival, or completion.
-- **Payment Confirmations**: Alerts users on successful transactions or issues.
+- Push Notifications
+- Ride Status Alerts
+- Payment Confirmations
+
+## Recommended Tech Stack
+- **Runtime**: Node.js for handling concurrent notifications [1][3].
+- **Framework**: Socket.IO for real-time messaging [3].
+- **Notification Tool**: Firebase Cloud Messaging for push alerts [7].
+- **Database**: MongoDB for logging notification history [3].
+
+## System Design Structure
+- **Notification Engine**: Processes triggers for alerts.
+- **Delivery Module**: Uses Firebase to send push notifications.
+- **Queue System**: Manages high-volume notifications with Kafka [4].
+- **Storage Layer**: Logs sent notifications for tracking.
+- **API Handler**: Receives triggers via API Gateway.
 
 ## Architecture Diagram
 ```mermaid
@@ -19,10 +32,10 @@ RMS[Ride Matching Service] -->|Match Updates| API
 ```
 
 ## Interaction with Other Services
-The Notification Service keeps users informed by collaborating with:
-- **API Gateway**: Receives triggers for notifications from various services routed through the gateway.
-- **Ride Service**: Sends ride status updates (e.g., driver assigned, ride started) to trigger notifications.
-- **Payment Service**: Initiates alerts for payment confirmations or issues.
-- **Ride Matching Service**: Triggers notifications for ride offers or successful matches.
-- **Passenger App and Driver App**: Delivers notifications directly to client apps for real-time updates.
+The Notification Service keeps users informed:
+- **API Gateway**: Receives notification triggers.
+- **Ride Service**: Sends ride status updates.
+- **Payment Service**: Triggers payment alerts.
+- **Ride Matching Service**: Notifies about matches.
+- **Passenger App and Driver App**: Delivers notifications.
 
